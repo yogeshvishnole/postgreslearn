@@ -1,0 +1,13 @@
+First in command line go to the path of postgres database upto the bin directory.
+
+then run the following command
+
+example: pg_restore -U postgres -d dvdrental  C:\temp\dvdrental.tar
+
+so command is --
+
+pg_restore -U user_name -d db_name path_of_.tar_file_of_database
+
+we can restore the same by pg_admin gui as well
+but if error occurs go to prferences and set the binary path 
+as path of bin directory of postgres dbms.

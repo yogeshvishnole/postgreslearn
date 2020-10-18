@@ -1,0 +1,9 @@
+// Database version view
+
+SELECT version();
+
+// Creating a database 
+
+ CREATE DATABASE natours;
+
+ so syntax --> CREATE  DATABASE db_name;

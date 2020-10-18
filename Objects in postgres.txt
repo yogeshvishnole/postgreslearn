@@ -1,0 +1,74 @@
+The first object is a server which provide access to the database
+over a network port 
+for postgres it is 5432 we can change the port while creating a
+our own server
+1. Server
+
+2. Database --> it is a container for other objects such as
+  a. Tables  
+  b.  Views
+  c.  Functions
+  d. Indexes
+
+3. Table is used to store data of a database
+
+ in a databse you can have as many  as tables possible.
+
+All the data of a datbase is stored in tables
+
+tables in a database  can be related by relatonships.
+
+4.Schema an schema is a logical container for tables and
+other database objects.
+We can have multiple schemas in a databse.
+
+Schemas are useful in production environment as you 
+can assign  permissions to different IT proffesionals 
+to perform various tasks in a specific schema.
+
+so remember you can assign permissions to schemas to restrict 
+access to various objects inside schema.
+
+5. Tablespaces 
+ 
+Storage location where data is stored  and
+postgres have two tablespaces by default 
+
+a. pg_default --> stores the data of the User
+b. pg_global --> stores the system related data
+
+
+6. Views
+
+a. Virtual tables 
+b. simplifies complex queries
+c. Used to apply security for a set of records.
+
+With the help of views you can hide the various parts of the 
+table from others .
+By creating views from tables you can restrict what data of tables
+others can see.
+
+
+7. Functions -- IN postgres functions are the blocks of reusable 
+SQL code.
+
+Can returns a scalar value of a list of records.
+Can also returns composite objects.
+
+8. Cast and operators
+
+Cast --> Convert one datatype into another datatype
+used with fucntions to perfotm conversion.
+You can create custo casts to override the default. 
+
+Operators --> Operator is a symbolic function.
+You can define your own custom operators.
+
+9. Sequences
+
+Used to manage auto increment columns.
+we can provide start value ,  max value , min value , increment number etc.
+
+we can see the query for creating sequence must see it 
+give you more insight into postgres.
