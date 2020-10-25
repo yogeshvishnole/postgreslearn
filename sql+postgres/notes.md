@@ -44,3 +44,178 @@ area INTEGER
 CREATE ,TABLE === keyword of database
 name cities country population === Identifiers
 Varchar , Integer === column datatypes,
+
+##### Inserting into a table
+
+INSERT INTO cities(name,country,population,area)
+VALUES
+('Delhi','India',23458488,2342),
+('Tokyo','Japan',72839929,8223);
+
+##### Retrive data using select
+
+`SELECT * FROM cities;`
+
+-  means all columns
+
+For retriving only the specific columns
+
+`SELECT name,country FROM cities`
+
+selecting same column
+
+`SELECT name,name,name FROM cities;`
+
+## Some powerful sql
+
+SQL isnot just about pullong the raw data
+
+We can write SQL to transform or process data before we recieive it.
+
+Example
+` SELECT name,|/area FROM cities`
+
+Some common math operators
+
+-  Add - Subtract / divivsion |/ square root ^ exponent \* multiply @ absolute value % remainder
+
+Renaming a callculated column
+
+` SELECT name , population/area AS population_density FROM cities`
+
+## String operators and functions
+
+|| Join two strings CONCAT() Join two strings LOWER() Gives a lowercase string
+LENGTH() gives number of characters ina string UPPER() Gives an uppercase string
+
+example query `SELECT name || ', ' || country FROM cities`
+
+`SELECT UPPER(CONCAT(name,', ',country)) AS location FROM cities;`
+`SELECT (CONCAT(LOWER(name),', ',LOWER(country))) AS location FROM cities;`
+
+## Filtering Rows with Where Clause ( Select operation in relatinal algebra)
+
+`SELECT name,area FROM cities WHERE area > 2000;`
+
+Evaluation order of the above query.
+
+1. SELECT name,area --> Third
+2. WHERE area > 2000 --> second
+3. FROM cities --> third.
+
+##### Comparison Math Operators for used in the where clause
+
+1. = Are the values equal
+2. > Is the value on the left greater.
+3. < Is the value on the left less
+4. > = Is value on left greater or equal
+5. IN Is the value present in a list
+6. BETWEEN
+7. NOT IN
+8. <= Is the value on the left less than or equal to.
+9. <> Are the values not equal
+10.   != Are the values not equal
+
+Example of between
+
+`SELECT name,area FROM cities WHERE area BETWEEN 2000 AND 4000`
+
+Example of IN
+
+`SELECT name,area FROM cities WHERE name IN("Delhi","Shanghai") `
+
+Example of NOT IN
+
+`SELECT name,area FROM cities WHERE name NOT IN("Delhi","Shanghai") `
+
+we can use any data type inside list.
+
+### Compound Checks using AND and OR operator
+
+`SELECT name,area FROM cities WHERE name NOT IN("Delhi","Shanghai") AND name = "Delhi"`
+
+```
+SELECT name,area
+FROM cities
+WHERE name NOT IN("Delhi","Shanghai") OR name = "Delhi" OR name = "TOKYO"
+```
+
+##### Using column calculation inside the where clause
+
+`SELECT name population/area AS population_density FROM cities WHERE population/area > 6000 `
+
+##### Updating rows
+
+`UPDATE cities SET population = 39000000 WHERE name = 'Tokyo';` careful that the condition should select the specific city that you want.
+
+##### Deleting rows
+
+`DELETE FROM citites WHERE name = "Tokyo"`
+
+# Database design ( my favourite topic)
+
+Now we head over by considering a real time situation
+
+We design a database for a photo sharing app
+
+Users photos
+Comments Likes
+
+Types of relationships
+
+1. One to one
+2. One to many
+3. Many to one
+4. Many to Many
+
+The constructs for implementing relationships.
+
+1. Primary key = Uniquely identifies a record in a table.
+2. Foreign key = Uniquely identifies a record (usually in another table) that this row is associated with.
+
+### Now SQL for relationships , primary keys and foriegn keys.
+
+// Creating the users table
+
+CREATE TABLE users (
+id SERIAL PRIMARY KEY,
+username VARCHAR(50)
+)
+
+// Creating a photos table
+
+CREATE TABLE photos (
+id SERIAL PRIMARY KEY,
+url VARCHAR(200),
+user_id INTEGER REFERENCES users(id)
+)
+
+-- Firstly, remove PRIMARY KEY attribute of former PRIMARY KEY
+ALTER TABLE <table_name> DROP CONSTRAINT <table_name>\_pkey;
+-- Then change column name of your PRIMARY KEY and PRIMARY KEY candidates properly.
+ALTER TABLE <table_name> RENAME COLUMN <primary_key_candidate> TO id;
+-- Lastly set your new PRIMARY KEY
+ALTER TABLE <table_name> ADD PRIMARY KEY (id);
+
+#### Now running queries on the associated data
+
+We are usually doing it with joins but we are going to it in a little time.
+
+SELECT \* FROM photos where user_id = 4;
+
+### Foriegn key constraints
+
+Around Insertion
+
+1. We insert a photo that tieds to a existing user === Everyhing ok.
+2. We insert a photo that refers to a user that not exists === Foreign key constraint error.
+3. We insert a photot that is not tied to any user === NULL
+
+query for inserting a null
+
+INSERT INTO photos(url,user_id)
+VALUES ("http://hello",NULL);
+
+Constraints around deletion
+
+Constraints around updating.
