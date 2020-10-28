@@ -216,6 +216,56 @@ query for inserting a null
 INSERT INTO photos(url,user_id)
 VALUES ("http://hello",NULL);
 
-Constraints around deletion
+Constraints around deletion,
+
+Now when we delete a user has various photos own by it, then we can take following steps.
+
+1. On delete restrict --> Throw an error on deletion of user.
+2. On delete no action --> Throw an error on deletion of user.
+3. On delete cascade --> Delete the user with all the photos associated with it.
+4. On delete set null --> Set the user_id of photo to null.
+5. On delete set default --> Set the user_id of the photo to a default value , if one is provided.
+
+Now setting up the ON DELETE CASCADE constraint
+
+CREATE TABLE photos (
+id SERIAL PRIMARY KEY,
+url VARCHAR(200),
+user_id INTEGER REFERENCES users(id) ON DELETE CASCADE
+);
+
+INSERT INTO photos (url, user_id)
+VALUES
+('http:/one.jpg', 4),
+('http:/two.jpg', 1),
+('http:/25.jpg', 1),
+('http:/36.jpg', 1),
+('http:/754.jpg', 2),
+('http:/35.jpg', 3),
+('http:/256.jpg', 4);
+
+Now setting up the ON DELETE SET NULL constraint
+
+CREATE TABLE photos (
+id SERIAL PRIMARY KEY,
+url VARCHAR(200),
+user_id INTEGER REFERENCES users(id) ON DELETE SET NULL
+);
+
+INSERT INTO photos (url, user_id)
+VALUES
+('http:/one.jpg', 4),
+('http:/two.jpg', 1),
+('http:/25.jpg', 1),
+('http:/36.jpg', 1),
+('http:/754.jpg', 2),
+('http:/35.jpg', 3),
+('http:/256.jpg', 4);
 
 Constraints around updating.
+
+### What is a schema diagram ?
+
+A diagram with all the basic structure of all tables of database ( with attributes name and datatypes ) is called as the schema diagram of the database.
+
+### Now lets add some complexity by adding the "comments" table to our db.
