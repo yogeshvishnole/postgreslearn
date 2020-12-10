@@ -269,3 +269,4 @@ Constraints around updating.
 A diagram with all the basic structure of all tables of database ( with attributes name and datatypes ) is called as the schema diagram of the database.
 
 ### Now lets add some complexity by adding the "comments" table to our db.
+d
